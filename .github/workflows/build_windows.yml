@@ -22,7 +22,8 @@ jobs:
     - name: Instalar dependencias
       run: |
         python -m pip install --upgrade pip
-        if (requirements.txt) { pip install -r requirements.txt }
+        py -m pip install --upgrade PyInstaller pyinstaller-hooks-contrib
+        py -m pip install pillow
 
     - name: Crear ejecutable con PyInstaller
       run: |
