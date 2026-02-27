@@ -27,7 +27,7 @@ jobs:
 
     - name: Crear ejecutable con PyInstaller
       run: |
-        pyinstaller  --onefile --windowed --icon="src/circulo-negro.ico" --add-data="src/circulo-rojo.ico:img/circulo-rojo.ico" --add-data="src/circulo-negro.ico:img/circulo-rojo.ico" --collect-all tkinter --collect-all PIL src/capturas.py
+        python -m PyInstaller  --onefile --windowed --icon="src/circulo-negro.ico" --add-data="src/circulo-rojo.ico:img/circulo-rojo.ico" --add-data="src/circulo-negro.ico:img/circulo-rojo.ico" --collect-all tkinter --collect-all PIL src/capturas.py
 
     - name: Subir artefacto (ejecutable)
       uses: actions/upload-artifact@v4
