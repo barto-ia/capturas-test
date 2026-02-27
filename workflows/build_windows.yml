@@ -1,0 +1,35 @@
+name: Build Windows Executable
+
+on:
+  push:
+    branches: [ main ]
+  release:
+    types: [created]
+
+jobs:
+  build-windows:
+    runs-on: windows-latest  # Utiliza una máquina virtual con Windows
+
+    steps:
+    - name: Checkout del código
+      uses: actions/checkout@v4
+
+    - name: Configurar Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+
+    - name: Instalar dependencias
+      run: |
+        python -m pip install --upgrade pip
+        if (requirements.txt) { pip install -r requirements.txt }
+
+    - name: Crear ejecutable con PyInstaller
+      run: |
+        pyinstaller  --onefile --windowed --icon="src/circulo-negro.ico" --add-data="src/circulo-rojo.ico:img/circulo-rojo.ico" --add-data="src/circulo-negro.ico:img/circulo-rojo.ico" --collect-all tkinter --collect-all PIL src/capturas.py
+
+    - name: Subir artefacto (ejecutable)
+      uses: actions/upload-artifact@v4
+      with:
+        name: ejecutable-windows
+        path: dist/*.exe  # PyInstaller guarda el ejecutable en dist
